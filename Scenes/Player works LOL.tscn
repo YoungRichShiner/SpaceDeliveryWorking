@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://noh2pa543nx7"]
+
+[ext_resource type="Script" path="res://Scripts/rigid_body_2d.gd" id="1_t1r3b"]
+[ext_resource type="Texture2D" uid="uid://d1vlrat12d06p" path="res://Kenney Assets/kenney_space-shooter-extension/PNG/Sprites X2/Ships/spaceShips_006.png" id="2_m8ub2"]
+[ext_resource type="Texture2D" uid="uid://cq85lxosev72e" path="res://Kenney Assets/kenney_simple-space/PNG/Default/effect_yellow.png" id="3_8d8d8"]
+[ext_resource type="Material" uid="uid://lf3fwn8pnxwy" path="res://Particles/Emitter.tres" id="3_jlgmf"]
+[ext_resource type="Script" path="res://Scripts/grapple_controller.gd" id="5_b1v7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_17cxc"]
+size = Vector2(106, 81)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Debug" type="RigidBody2D" parent="."]
+mass = 0.5
+gravity_scale = 0.0
+script = ExtResource("1_t1r3b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Debug"]
+shape = SubResource("RectangleShape2D_17cxc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Debug"]
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_m8ub2")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Debug/Sprite2D"]
+position = Vector2(-77.9997, 74.0003)
+rotation = 1.5708
+amount = 50
+process_material = ExtResource("3_jlgmf")
+texture = ExtResource("3_8d8d8")
+lifetime = 0.4
+preprocess = 24.24
+explosiveness = 0.13
+randomness = 0.73
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Debug/Sprite2D"]
+position = Vector2(80.0003, 77.9997)
+rotation = -3.14159
+amount = 50
+process_material = ExtResource("3_jlgmf")
+texture = ExtResource("3_8d8d8")
+lifetime = 0.4
+preprocess = 24.24
+explosiveness = 0.13
+randomness = 0.73
+trail_enabled = true
+
+[node name="GrappleController" type="Node2D" parent="Debug"]
+script = ExtResource("5_b1v7m")
+
+[node name="RayCast2D" type="RayCast2D" parent="Debug/GrappleController"]
+target_position = Vector2(900, 0)

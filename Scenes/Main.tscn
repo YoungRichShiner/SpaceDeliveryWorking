@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwcka6ah72eb3"]
+
+[ext_resource type="PackedScene" uid="uid://noh2pa543nx7" path="res://Scenes/Player works LOL.tscn" id="1_dvqru"]
+[ext_resource type="Texture2D" uid="uid://bev87xxe2mxgr" path="res://Kenney Assets/kenney_planets/Planets/planet04.png" id="1_yr68m"]
+[ext_resource type="FontFile" uid="uid://ceb7ry1f5tu6q" path="res://Kenney Assets/kenney_ui-pack-space-expansion/Font/Kenney Future.ttf" id="2_kvi76"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gif5p"]
+radius = 181.069
+
+[sub_resource type="LabelSettings" id="LabelSettings_raami"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_cftw1"]
+
+[node name="Area2D" type="Area2D"]
+
+[node name="Asteroid" type="RigidBody2D" parent="."]
+mass = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Asteroid"]
+position = Vector2(283, -189)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("1_yr68m")
+centered = false
+offset = Vector2(283, -189)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Asteroid"]
+position = Vector2(608, -31)
+shape = SubResource("CircleShape2D_gif5p")
+
+[node name="Label" type="Label" parent="Asteroid/CollisionShape2D"]
+clip_contents = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -199.0
+offset_right = 182.0
+offset_bottom = 185.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Woah!"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kvi76")
+text = "Controls:
+WSAD - Fly
+Shift - Landing Mode
+Space - Brake"
+label_settings = SubResource("LabelSettings_raami")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+z_as_relative = false
+position = Vector2(14, -1)
+scale = Vector2(10, 10)
+texture = ExtResource("1_yr68m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 67)
+shape = SubResource("WorldBoundaryShape2D_cftw1")
+
+[node name="Debug" parent="." instance=ExtResource("1_dvqru")]
+
+[node name="Camera2D2" type="Camera2D" parent="Debug"]
+zoom = Vector2(0.75, 0.75)
+position_smoothing_enabled = true
+position_smoothing_speed = 6.5

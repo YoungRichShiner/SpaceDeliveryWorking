@@ -1,0 +1,17 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://lf3fwn8pnxwy"]
+
+[resource]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+angle_min = -325.8
+angle_max = 418.0
+inherit_velocity_ratio = 0.404
+gravity = Vector3(0, 0, 0)
+damping_max = 30.645
+scale_min = 0.2
+scale_max = 0.5
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.62
+collision_use_scale = true
