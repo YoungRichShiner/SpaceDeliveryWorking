@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bna8iso4kf2yc"]
+
+[ext_resource type="Script" path="res://Scripts/rigid_body_2d.gd" id="1_223hb"]
+[ext_resource type="Texture2D" uid="uid://bp0lf6uqiyljj" path="res://Assets/spaceShips_008.png" id="2_sfwnb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyymp"]
+size = Vector2(99, 82)
+
+[node name="PlayerShip" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+script = ExtResource("1_223hb")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+rotation = 1.5708
+texture = ExtResource("2_sfwnb")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_dyymp")
+
+[node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+rotation_smoothing_enabled = true

@@ -1,3 +1,13 @@
-[gd_scene format=3 uid="uid://dx6yv84s0rbrp"]
+[gd_scene load_steps=3 format=3 uid="uid://dx6yv84s0rbrp"]
+
+[ext_resource type="Texture2D" uid="uid://bev87xxe2mxgr" path="res://Assets/planet04.png" id="1_88vay"]
+[ext_resource type="PackedScene" uid="uid://bna8iso4kf2yc" path="res://Scenes/player_ship.tscn" id="2_yqy3r"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.84217e-14, 0)
+scale = Vector2(6.257, 6)
+texture = ExtResource("1_88vay")
+
+[node name="PlayerShip" parent="." instance=ExtResource("2_yqy3r")]
