@@ -22,18 +22,25 @@ var _last_forward := Vector2.ZERO
 var _current_thrust := 0.0
 
 var _landing_mode := false
-
+var _landing_mode_delay := 0.0
 
 func _physics_process(delta):
 	var forward = Vector2(cos(rotation), sin(rotation)) #Reusable forward vector YOOOOOOOO
 	
 	### --- LANDING MODE SECTION --- ###
+	if Input.is_action_just_pressed("landing_mode"):
+		_landing_mode_delay = 1.0
+		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, BRAKE * delta)
+		angular_velocity = move_toward(angular_velocity, 0.0, BRAKE * delta)
+
+	if _landing_mode_delay > 0.0:
+		_landing_mode_delay -= delta
+		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, BRAKE * delta)
+		angular_velocity = move_toward(angular_velocity, 0.0, BRAKE * delta)
+		return
+
 	_landing_mode = Input.is_action_pressed("landing_mode")
 
-	if Input.is_action_just_pressed("landing_mode"):
-		if linear_velocity.length() > LANDING_SPEED:
-			linear_velocity = linear_velocity.move_toward(Vector2.ZERO, BRAKE * delta)
-			##linear_velocity = lerp(linear_velocity, LANDING SPEED, BRAKE * delta)
 	if _landing_mode:
 		
 		# Gradually slow rotation
@@ -92,4 +99,3 @@ func _physics_process(delta):
 		angular_velocity = move_toward(angular_velocity, 0.0, BRAKE * delta)
 	
 	_last_forward = forward
-	
