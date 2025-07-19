@@ -2,13 +2,13 @@ extends RigidBody2D
 
 ### FLIGHT CONSTANTS BITCH ###
 const REVERSE_THRUST := 350.0 #put it in reverse terry
-const THRUST := 570.0      # Forward/backward force
+const THRUST := 600.0      # Forward/backward force
 const TURN_SPEED := 2.3    # Rotation speed
 const BRAKE := 650.0       # Stopping power
-const TURN_DAMPING := 0.6  # 0-1 (higher = stronger counter-thrust)
-const TOP_SPEED := 3250.0  # Changed to float
-const TURN_SMOOTH = .3 #lower = slower AND smoother
-const THRUST_RAMP_UP := 4.0 # How fast engine reaches full power (higher = faster)
+const TURN_DAMPING := 0.5  # 0-1 (higher = stronger counter-thrust)
+const TOP_SPEED := 3750.0  # Changed to float
+const TURN_SMOOTH = .2 #lower = slower AND smoother
+const THRUST_RAMP_UP := 5.0 # How fast engine reaches full power (higher = faster)
 
 ### LANDING MODE CONST ###
 const LANDING_SPEED = 200.0
@@ -79,8 +79,10 @@ func _physics_process(delta):
 	var turn_input = Input.get_axis("Turn L", "Turn R")
 	var target_turn_speed = turn_input * TURN_SPEED 
 
+
 	# Gradual turn acceleration
-	angular_velocity = move_toward(angular_velocity, target_turn_speed, (TURN_SPEED * 5) * delta)
+	_turn_smoothing = lerp(_turn_smoothing, target_turn_speed, TURN_SMOOTH)
+	angular_velocity = move_toward(_turn_smoothing, THRUST, delta )
 
 	# Physics-preserving turn handling
 	if turn_input != 0:

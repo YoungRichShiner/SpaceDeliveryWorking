@@ -3,7 +3,7 @@ extends Node2D
 @onready var ray:= $RayCast2D
 
 var launched = false
-var target = Vector2
+var target = Vector2w
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
