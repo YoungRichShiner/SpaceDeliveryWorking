@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bna8iso4kf2yc"]
 
 [ext_resource type="Script" path="res://Scripts/rigid_body_2d.gd" id="1_223hb"]
-[ext_resource type="Script" path="res://Scenes/realgrapple_controller.gd" id="2_655ih"]
+[ext_resource type="Script" path="res://Scripts/realgrapple_controller.gd" id="2_efd5e"]
 [ext_resource type="Texture2D" uid="uid://bp0lf6uqiyljj" path="res://Assets/spaceShips_008.png" id="2_sfwnb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyymp"]
@@ -13,11 +13,10 @@ size = Vector2(99, 82)
 script = ExtResource("1_223hb")
 
 [node name="GrappleController" type="Node2D" parent="RigidBody2D"]
-script = ExtResource("2_655ih")
+script = ExtResource("2_efd5e")
 
 [node name="WhipBeam" type="Line2D" parent="RigidBody2D/GrappleController"]
 top_level = true
-z_index = 1
 width = 0.3
 default_color = Color(0.0235294, 1, 1, 1)
 antialiased = true

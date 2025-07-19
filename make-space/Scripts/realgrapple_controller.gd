@@ -24,6 +24,7 @@ func _input(event):
 	if event.is_action_pressed("grapple"):
 		if GrappleRay.is_colliding():
 			var obj = GrappleRay.get_collider()
+			is_holding = true
 			if obj is RigidBody2D:  # Only grab physics objects
 				hooked_object = obj
 				HoldTimer.start()  # Start checking for hold
@@ -39,18 +40,31 @@ func _input(event):
 			release_grapple()
 
 func _physics_process(delta):
+	global_position = ship.global_position
 	if hooked_object and is_holding:
+		# Check if hooked_object is still valid and in the scene
+		if not is_instance_valid(hooked_object) or not hooked_object.get_parent():
+			release_grapple()
+			return
+
 		# Keep object within max distance
-		var dist = global_position.distance_to(hooked_object.position)
+		var obj_pos = hooked_object.position
+		var obj_global = hooked_object.global_position
+
+		var dist = global_position.distance_to(obj_pos)
 		if dist > max_distance:
 			release_grapple()  # Snap if too far
-		else:
-			# Apply pull force
-			var dir = (global_position - hooked_object.position).normalized()
-			hooked_object.apply_central_impulse(dir * hold_force * delta * 60)
-		
+			return
+
+		# Apply pull force
+		var dir = (global_position - obj_pos).normalized()
+		hooked_object.apply_central_impulse(dir * hold_force * delta * 60)
+
 		# Update whip line visuals
-		WhipBeam.points = [Vector2.ZERO, to_local(hooked_object.position)]
+		if is_instance_valid(hooked_object):
+			WhipBeam.points = [global_position, obj_global]
+		else:
+			release_grapple()
 
 func release_grapple():
 	hooked_object = null
