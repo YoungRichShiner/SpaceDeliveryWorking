@@ -16,6 +16,8 @@ script = ExtResource("1_223hb")
 script = ExtResource("2_655ih")
 
 [node name="WhipBeam" type="Line2D" parent="RigidBody2D/GrappleController"]
+top_level = true
+z_index = 1
 width = 0.3
 default_color = Color(0.0235294, 1, 1, 1)
 antialiased = true
