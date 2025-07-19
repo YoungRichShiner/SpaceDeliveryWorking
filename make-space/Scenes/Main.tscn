@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx6yv84s0rbrp"]
+[gd_scene load_steps=6 format=3 uid="uid://dx6yv84s0rbrp"]
 
 [ext_resource type="Texture2D" uid="uid://bev87xxe2mxgr" path="res://Assets/planet04.png" id="1_88vay"]
 [ext_resource type="Texture2D" uid="uid://db42qwlap514a" path="res://Assets/spaceMeteors_001.png" id="1_lrghr"]
 [ext_resource type="PackedScene" uid="uid://bna8iso4kf2yc" path="res://Scenes/player_ship.tscn" id="2_yqy3r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fsvun"]
-radius = 220.02
+resource_local_to_scene = true
+radius = 232.054
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e3234"]
+radius = 163.12
+height = 326.24
 
 [node name="Node2D" type="Node2D"]
 
@@ -13,6 +18,7 @@ radius = 220.02
 position = Vector2(700, 0)
 collision_layer = 2
 collision_mask = 3
+mass = 5.0
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
 scale = Vector2(2, 2)
@@ -20,6 +26,18 @@ texture = ExtResource("1_lrghr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("CircleShape2D_fsvun")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(400, 560)
+collision_layer = 2
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_lrghr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("CapsuleShape2D_e3234")
 
 [node name="PlayerShip" parent="." instance=ExtResource("2_yqy3r")]
 
