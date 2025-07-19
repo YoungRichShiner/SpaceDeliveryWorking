@@ -17,7 +17,7 @@ texture = ExtResource("2_sfwnb")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(-0.5, 1)
+rotation = 1.5708
 shape = SubResource("RectangleShape2D_dyymp")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
