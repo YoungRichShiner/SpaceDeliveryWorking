@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bna8iso4kf2yc"]
+[gd_scene load_steps=7 format=3 uid="uid://bna8iso4kf2yc"]
 
 [ext_resource type="Script" path="res://Scripts/rigid_body_2d.gd" id="1_223hb"]
 [ext_resource type="Script" path="res://Scripts/realgrapple_controller.gd" id="2_efd5e"]
 [ext_resource type="Texture2D" uid="uid://bp0lf6uqiyljj" path="res://Assets/spaceShips_008.png" id="2_sfwnb"]
+[ext_resource type="Texture2D" uid="uid://dtcqwlbcaekrl" path="res://Assets/spaceEffects_018.png" id="4_6knmo"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2jkx"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dyymp"]
 size = Vector2(99, 82)
@@ -32,6 +37,13 @@ wait_time = 0.15
 rotation = 1.5708
 texture = ExtResource("2_sfwnb")
 flip_h = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="RigidBody2D/Sprite2D"]
+position = Vector2(0, 30)
+rotation = 1.5708
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_t2jkx")
+texture = ExtResource("4_6knmo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 rotation = 1.5708

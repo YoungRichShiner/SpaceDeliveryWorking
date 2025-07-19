@@ -14,29 +14,29 @@ height = 326.24
 
 [node name="Node2D" type="Node2D"]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+[node name="Big Asteroid" type="RigidBody2D" parent="."]
 position = Vector2(700, 0)
 collision_layer = 2
 collision_mask = 3
 mass = 5.0
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Big Asteroid"]
 scale = Vector2(2, 2)
 texture = ExtResource("1_lrghr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Big Asteroid"]
 shape = SubResource("CircleShape2D_fsvun")
 
-[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+[node name="Small Asteroid" type="RigidBody2D" parent="."]
 position = Vector2(400, 560)
 collision_layer = 2
 collision_mask = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+[node name="Sprite2D" type="Sprite2D" parent="Small Asteroid"]
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("1_lrghr")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Small Asteroid"]
 shape = SubResource("CapsuleShape2D_e3234")
 
 [node name="PlayerShip" parent="." instance=ExtResource("2_yqy3r")]
