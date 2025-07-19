@@ -18,7 +18,7 @@ extends Node2D
 @export var max_release_speed := 800.0
 
 # Tension System
-@export var max_beam_tension := 20000.0
+@export var max_beam_tension := 30000.0
 @export var tension_decay_rate := 50.0
 @export var base_tension_multiplier := 0.2
 
