@@ -50,7 +50,6 @@ texture = ExtResource("4_6knmo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(-5, 0)
 rotation = 1.5708
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_xqdc6")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
