@@ -9,8 +9,8 @@
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a2h8l"]
-radius = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_xqdc6"]
+radius = 27.0
 
 [node name="PlayerShip" type="Node2D"]
 scale = Vector2(0.1, 0.1)
@@ -49,11 +49,14 @@ process_material = SubResource("ParticleProcessMaterial_t2jkx")
 texture = ExtResource("4_6knmo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(-5, 0)
 rotation = 1.5708
 scale = Vector2(1, 1)
-shape = SubResource("CircleShape2D_a2h8l")
+shape = SubResource("CircleShape2D_xqdc6")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
+offset = Vector2(20, 0)
+zoom = Vector2(1.1, 1.1)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 rotation_smoothing_enabled = true

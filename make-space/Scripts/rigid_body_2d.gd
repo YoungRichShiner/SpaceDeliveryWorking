@@ -2,9 +2,9 @@ extends RigidBody2D
 
 ### FLIGHT CONSTANTS BITCH ###
 const REVERSE_THRUST := 350.0 #put it in reverse terry
-const THRUST := 600.0      # Forward/backward force
+const THRUST := 400.0      # Forward/backward force
 const TURN_SPEED := 2.3    # Rotation speed
-const BRAKE := 650.0       # Stopping power
+const BRAKE := 450.0       # Stopping power
 const TURN_DAMPING := 0.5  # 0-1 (higher = stronger counter-thrust)
 const TOP_SPEED := 3750.0  # Changed to float
 const TURN_SMOOTH = .2 #lower = slower AND smoother
