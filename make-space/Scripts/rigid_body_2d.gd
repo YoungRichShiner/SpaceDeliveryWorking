@@ -1,12 +1,12 @@
 extends RigidBody2D
 
 ### FLIGHT CONSTANTS BITCH ###
-const REVERSE_THRUST := 350.0 #put it in reverse terry
-const THRUST := 400.0      # Forward/backward force
+const REVERSE_THRUST := .33 #put it in reverse terry
+const THRUST := 300.0      # Forward/backward force
 const TURN_SPEED := 2.3    # Rotation speed
 const BRAKE := 450.0       # Stopping power
 const TURN_DAMPING := 0.5  # 0-1 (higher = stronger counter-thrust)
-const TOP_SPEED := 3750.0  # Changed to float
+const TOP_SPEED := 2750.0  # Changed to float
 const TURN_SMOOTH = .2 #lower = slower AND smoother
 const THRUST_RAMP_UP := 5.0 # How fast engine reaches full power (higher = faster)
 
@@ -73,7 +73,8 @@ func _physics_process(delta):
 	
 	# Reverse thrust
 	if Input.is_action_pressed("Reverse"):
-		apply_force(-forward * REVERSE_THRUST)
+		var reversethrust = (_current_thrust * REVERSE_THRUST)
+		apply_force(-forward * reversethrust)
 	
 		### --- SMOOTH TURNING IMPLEMENTATION --- ###
 	var turn_input = Input.get_axis("Turn L", "Turn R")

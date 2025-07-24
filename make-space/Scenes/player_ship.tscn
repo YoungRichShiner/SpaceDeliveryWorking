@@ -16,7 +16,6 @@ radius = 27.0
 scale = Vector2(0.1, 0.1)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-mass = 2.0
 script = ExtResource("1_223hb")
 
 [node name="GrappleController" type="Node2D" parent="RigidBody2D"]
