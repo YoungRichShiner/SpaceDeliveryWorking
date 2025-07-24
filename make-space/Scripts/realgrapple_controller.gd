@@ -10,7 +10,7 @@ extends Node2D
 @export var rest_length := 0.0
 @export var stiffness := 80.0
 @export var damping := 45.0
-@export var hold_offset := 180.0
+@export var hold_offset := 120.0
 @export var whip_origin_offset := 20.0
 @export var brake_strength := 12.0
 @export var min_distance := 60.0
@@ -18,7 +18,7 @@ extends Node2D
 @export var max_release_speed := 800.0
 
 # Tension System
-@export var max_beam_tension := 30000.0
+@export var max_beam_tension := 50000.0
 @export var tension_decay_rate := 50.0
 @export var base_tension_multiplier := 0.2
 
