@@ -4,6 +4,7 @@ extends Node2D
 @onready var ship := get_parent()
 @onready var HoldTimer := $Timer
 @onready var WhipBeam := $WhipBeam
+@onready var AimingLine := $AimingLine  # Add this Line2D node in your scene
 
 # Physics Parameters
 @export var flick_force := 700.0
@@ -24,53 +25,40 @@ extends Node2D
 
 var hooked_object: RigidBody2D = null
 var is_holding := false
+var is_aiming := false  # New state
 var current_tension := 0.0
 var is_beam_at_risk := false
 
+func _ready():
+	AimingLine.visible = false
 
-
-# # Releases hooked object with optional snap effects and velocity clamping
-func release_grapple(snap: bool = false):
-	if hooked_object:
-		#if snap:
-			#$SnapSound.play()
-			#$AnimationPlayer.play("beam_snap")
-		
-		# Clamp release velocity
-		var current_speed = hooked_object.linear_velocity.length()
-		if current_speed > max_release_speed:
-			hooked_object.linear_velocity = hooked_object.linear_velocity.normalized() * max_release_speed
-	
-	hooked_object = null
-	is_holding = false
-	WhipBeam.points = []
-	current_tension = 0.0
-	is_beam_at_risk = false
-
-
-# # Handles grapple button press/release with tap/hold distinction
 func _input(event):
 	if event.is_action_pressed("grapple"):
+		if hooked_object:  # If already hooked, release
+			release_grapple()
+		else:  # Start aiming
+			is_aiming = true
+			AimingLine.visible = true
+
+	if event.is_action_released("grapple") and is_aiming:
+		is_aiming = false
+		AimingLine.visible = false
 		if GrappleRay.is_colliding():
 			var obj = GrappleRay.get_collider()
 			if obj is RigidBody2D:
 				hooked_object = obj
 				is_holding = true
-				HoldTimer.start()
 				current_tension = 0.0
 				is_beam_at_risk = false
-	
-	if event.is_action_released("grapple"):
-		if hooked_object:
-			is_holding = false
-			if HoldTimer.time_left > 0:
-				var dir = (get_hold_point() - hooked_object.position).normalized()
-				hooked_object.apply_central_impulse(dir * flick_force)
-			release_grapple()
 
-
-# # Main physics loop: calculates forces, updates tension, and manages snapping
 func _physics_process(delta):
+	# Update aiming line
+	if is_aiming and not hooked_object:
+		var aim_end = GrappleRay.target_position
+		if GrappleRay.is_colliding():
+			aim_end = to_local(GrappleRay.get_collision_point())
+		AimingLine.points = [Vector2.ZERO, aim_end]
+
 	if hooked_object and is_holding:
 		if not is_instance_valid(hooked_object) or not hooked_object.get_parent():
 			release_grapple()
@@ -141,8 +129,6 @@ func _physics_process(delta):
 		current_tension = max(current_tension - tension_decay_rate * delta, 0.0)
 		_update_beam_visuals()
 
-
-# # Updates whip color/width based on current tension (blue->red, pulsing at high tension)
 func _update_beam_visuals():
 	var tension_ratio = current_tension / max_beam_tension
 	WhipBeam.default_color = Color(
@@ -159,8 +145,6 @@ func _update_beam_visuals():
 	else:
 		WhipBeam.width = 3.0
 
-
-# # Calculates ideal hold position accounting for object size and ship offset
 func get_hold_point() -> Vector2:
 	var offset = hold_offset
 	if hooked_object and is_instance_valid(hooked_object):
@@ -169,13 +153,11 @@ func get_hold_point() -> Vector2:
 			offset += _get_shape_radius(shape)
 	return ship.global_position + Vector2.RIGHT.rotated(ship.rotation) * offset
 	
-# # Helper: Gets the collision shape of a physics object
 func _get_object_shape(obj: RigidBody2D) -> Shape2D:
 	if obj.get_shape_owners().size() > 0:
 		return obj.shape_owner_get_shape(0, 0)
 	return null
 
-# # Helper: Calculates effective radius for different shape types
 func _get_shape_radius(shape: Shape2D) -> float:
 	if shape is CircleShape2D:
 		return shape.radius
@@ -184,3 +166,22 @@ func _get_shape_radius(shape: Shape2D) -> float:
 	elif shape is CapsuleShape2D:
 		return shape.radius + (shape.height * 0.5)
 	return 0.0
+
+func release_grapple(snap: bool = false):
+	if hooked_object:
+		#if snap:
+		#	$SnapSound.play()
+		#	$AnimationPlayer.play("beam_snap")
+		
+		# Clamp release velocity
+		var current_speed = hooked_object.linear_velocity.length()
+		if current_speed > max_release_speed:
+			hooked_object.linear_velocity = hooked_object.linear_velocity.normalized() * max_release_speed
+	
+	hooked_object = null
+	is_holding = false
+	is_aiming = false
+	WhipBeam.points = []
+	AimingLine.visible = false
+	current_tension = 0.0
+	is_beam_at_risk = false

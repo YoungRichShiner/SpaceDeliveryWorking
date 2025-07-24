@@ -2,24 +2,27 @@
 
 [ext_resource type="Script" path="res://Scripts/rigid_body_2d.gd" id="1_223hb"]
 [ext_resource type="Script" path="res://Scripts/realgrapple_controller.gd" id="2_efd5e"]
-[ext_resource type="Texture2D" uid="uid://bp0lf6uqiyljj" path="res://Assets/spaceShips_008.png" id="2_sfwnb"]
-[ext_resource type="Texture2D" uid="uid://dtcqwlbcaekrl" path="res://Assets/spaceEffects_018.png" id="4_6knmo"]
+[ext_resource type="Texture2D" uid="uid://diww7wovlwnxh" path="res://Assets/copper_space_fighter.png" id="3_sgpqv"]
+[ext_resource type="Texture2D" uid="uid://007afo2oxui5" path="res://Assets/new_gradient_texture_2d.tres" id="5_6rume"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t2jkx"]
-particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_muv4b"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xqdc6"]
-radius = 27.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2bw"]
+size = Vector2(42.9998, 46.0002)
 
 [node name="PlayerShip" type="Node2D"]
-scale = Vector2(0.1, 0.1)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 script = ExtResource("1_223hb")
 
 [node name="GrappleController" type="Node2D" parent="RigidBody2D"]
 script = ExtResource("2_efd5e")
+
+[node name="AimingLine" type="Line2D" parent="RigidBody2D/GrappleController"]
+width = 2.0
+default_color = Color(0.648385, 0.551993, 0.969331, 1)
+gradient = SubResource("Gradient_muv4b")
 
 [node name="WhipBeam" type="Line2D" parent="RigidBody2D/GrappleController"]
 top_level = true
@@ -28,7 +31,8 @@ default_color = Color(0.0235294, 1, 1, 1)
 antialiased = true
 
 [node name="RayCast2D" type="RayCast2D" parent="RigidBody2D/GrappleController"]
-target_position = Vector2(2000, 0)
+visible = false
+target_position = Vector2(500, 0)
 collision_mask = 2
 
 [node name="Timer" type="Timer" parent="RigidBody2D/GrappleController"]
@@ -36,25 +40,21 @@ wait_time = 0.15
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
 rotation = 1.5708
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_sfwnb")
+texture = ExtResource("3_sgpqv")
 flip_h = true
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="RigidBody2D/Sprite2D"]
-visible = false
-position = Vector2(0, 30)
-amount = 20
-process_material = SubResource("ParticleProcessMaterial_t2jkx")
-texture = ExtResource("4_6knmo")
+[node name="PointLight2D" type="PointLight2D" parent="RigidBody2D/Sprite2D"]
+texture = ExtResource("5_6rume")
+offset = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(-5, 0)
+position = Vector2(-3, 0.5)
 rotation = 1.5708
-shape = SubResource("CircleShape2D_xqdc6")
+shape = SubResource("RectangleShape2D_qi2bw")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
-offset = Vector2(20, 0)
-zoom = Vector2(1.1, 1.1)
+offset = Vector2(100, 0)
+zoom = Vector2(1.3, 1.3)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 rotation_smoothing_enabled = true

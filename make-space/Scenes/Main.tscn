@@ -44,7 +44,6 @@ color = Color(0.170215, 0.144682, 0.321615, 1)
 
 [node name="PlayerShip" parent="." instance=ExtResource("2_yqy3r")]
 position = Vector2(134, 3)
-scale = Vector2(1, 1)
 
 [node name="Big Asteroid" type="RigidBody2D" parent="."]
 position = Vector2(614, -238)
