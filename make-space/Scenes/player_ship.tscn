@@ -9,12 +9,14 @@
 particle_flag_disable_z = true
 gravity = Vector3(0, 0, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dyymp"]
-size = Vector2(99, 82)
+[sub_resource type="CircleShape2D" id="CircleShape2D_a2h8l"]
+radius = 20.0
 
 [node name="PlayerShip" type="Node2D"]
+scale = Vector2(0.1, 0.1)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
+mass = 2.0
 script = ExtResource("1_223hb")
 
 [node name="GrappleController" type="Node2D" parent="RigidBody2D"]
@@ -35,22 +37,23 @@ wait_time = 0.15
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
 rotation = 1.5708
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_sfwnb")
 flip_h = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="RigidBody2D/Sprite2D"]
+visible = false
 position = Vector2(0, 30)
-rotation = 1.5708
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_t2jkx")
 texture = ExtResource("4_6knmo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 rotation = 1.5708
-shape = SubResource("RectangleShape2D_dyymp")
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_a2h8l")
 
 [node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
-zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 rotation_smoothing_enabled = true
